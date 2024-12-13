@@ -43,7 +43,7 @@ const ProfileUpdate = () => {
 
     try {
       const { data } = await axios.put(
-        `http://localhost:8081/api/v1/auth/updateprofile`,
+        `https://hospital-backend-f4od.onrender.com/api/v1/auth/updateprofile`,
         formData
       );
       setMessage("Profile updated successfully.");
