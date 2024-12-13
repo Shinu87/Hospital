@@ -71,17 +71,19 @@ hospitalSchema.methods.resetCounters = async function () {
 };
 
 // Schedule a cron job to reset the counters every midnight
-cron.schedule("0 0 * * *", async () => {
+cron.schedule("*/1 * * * *", async () => {
+  console.log("Simulated cron job started.");
   try {
-    const hospitals = await mongoose.model("Hospital").find(); // Get all hospitals
+    const hospitals = await mongoose.model("Hospital").find();
     for (const hospital of hospitals) {
-      await hospital.resetCounters(); // Reset counters for each hospital
+      await hospital.resetCounters();
       console.log(`Counters reset for hospital: ${hospital.name}`);
     }
   } catch (error) {
     console.error("Error resetting counters:", error);
   }
 });
+
 
 // Create the Hospital model
 export default mongoose.model("Hospital", hospitalSchema, "hospitals");
