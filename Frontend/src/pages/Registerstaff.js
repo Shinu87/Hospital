@@ -33,7 +33,7 @@ const RegisterStaff = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:8081/api/v1/auth/register/staff",
+        "https://hospital-backend-f4od.onrender.com/api/v1/auth/register/staff",
         formData
       );
       setLoading(false);
