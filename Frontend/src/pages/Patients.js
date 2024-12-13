@@ -29,7 +29,7 @@ const PatientList = () => {
 
     try {
       const response = await axios.get(
-        `http://localhost:8081/api/v1/auth/get-patients`, // Your API endpoint to get today's patients
+        `https://hospital-backend-f4od.onrender.com/api/v1/auth/get-patients`, // Your API endpoint to get today's patients
         {
           headers: {
             hospitalid: hospitalId, // Send the hospital ID from the context
