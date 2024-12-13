@@ -33,7 +33,7 @@ const Register = () => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "http://localhost:8081/api/v1/auth/register/patient",
+        "https://hospital-backend-f4od.onrender.com/api/v1/auth/register/patient",
         formData
       );
       if (response.status === 201) {
