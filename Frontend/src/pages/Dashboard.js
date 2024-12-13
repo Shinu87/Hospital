@@ -22,7 +22,7 @@ const TodaysPatients = () => {
       try {
         // Fetch patients using the hospitalId from authUser
         const response = await axios.get(
-          "http://localhost:8081/api/v1/auth/get-todays-patients",
+          "https://hospital-backend-f4od.onrender.com/api/v1/auth/get-todays-patients",
           {
             headers: {
               hospitalid: user.hospitalId, // Get hospitalId from authUser context
