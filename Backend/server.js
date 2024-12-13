@@ -25,7 +25,7 @@ app.use("/api/v1/auth", authRoutes);
 
 //rest api
 app.get("/", (req, res) => {
-  res.send("<h1>Welcome to Hospital Management app</h1>");
+  res.send("Hi Shinucare");
 });
 
 //PORT
