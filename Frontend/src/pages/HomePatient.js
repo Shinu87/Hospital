@@ -34,7 +34,7 @@ const HomePage = () => {
     const fetchHospitals = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:8081/api/v1/auth/hospitals"
+          "https://hospital-backend-f4od.onrender.com/api/v1/auth/hospitals"
         );
         setHospitals(response.data);
       } catch (error) {
@@ -55,7 +55,7 @@ const HomePage = () => {
 
     try {
       const response = await axios.post(
-        `http://localhost:8081/api/v1/auth/register-patient/${hospitalId}`,
+        `https://hospital-backend-f4od.onrender.com/api/v1/auth/register-patient/${hospitalId}`,
         patientDataWithValidAge
       );
       setTokenNumber(response.data.tokenAssigned);
