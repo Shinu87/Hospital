@@ -27,7 +27,7 @@ const AddHospital = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:8081/api/v1/auth/hospital",
+        "https://hospital-backend-f4od.onrender.com/api/v1/auth/hospital",
         formData
       );
 
