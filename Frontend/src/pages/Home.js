@@ -35,7 +35,7 @@ const HomePage = () => {
     const fetchHospitals = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:8081/api/v1/auth/hospitals"
+          "https://hospital-backend-f4od.onrender.com/api/v1/auth/hospitals"
         );
         setHospitals(response.data);
       } catch (error) {
@@ -50,7 +50,7 @@ const HomePage = () => {
   const checkPatientAccountExists = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:8081/api/v1/auth/check-patient/${patientData.phone}`
+        `https://hospital-backend-f4od.onrender.com/api/v1/auth/check-patient/${patientData.phone}`
       );
       return response.data.exists; // This would return a boolean indicating if the patient exists
     } catch (error) {
@@ -64,7 +64,7 @@ const HomePage = () => {
   const createPatientAccount = async () => {
     try {
       const response = await axios.post(
-        "http://localhost:8081/api/v1/auth/register/staff/patient", // API endpoint for creating a patient account
+        "https://hospital-backend-f4od.onrender.com/api/v1/auth/register/staff/patient", // API endpoint for creating a patient account
         patientData
       );
       setPatientAccountCreated(true); // Indicate that the account was created
@@ -94,7 +94,7 @@ const HomePage = () => {
 
       // Now, proceed to register the patient after account creation
       const response = await axios.post(
-        `http://localhost:8081/api/v1/auth/register-patient/${hospitalId}`,
+        `https://hospital-backend-f4od.onrender.com/api/v1/auth/register-patient/${hospitalId}`,
         patientDataWithValidAge
       );
       setTokenNumber(response.data.tokenAssigned);
@@ -117,7 +117,7 @@ const HomePage = () => {
 
       // Now, proceed to register the patient after account creation
       const response = await axios.post(
-        `http://localhost:8081/api/v1/auth/register-patient/${hospitalId}`,
+        `https://hospital-backend-f4od.onrender.com/api/v1/auth/register-patient/${hospitalId}`,
         patientDataWithValidAge
       );
       setTokenNumber(response.data.tokenAssigned);
