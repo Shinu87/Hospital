@@ -56,7 +56,7 @@ const ProfilePage = () => {
           for (const appointment of user.appointments) {
             if (appointment.hospital) {
               const response = await axios.get(
-                `http://localhost:8081/api/v1/auth/hospital/${appointment.hospital}`
+                `https://hospital-backend-f4od.onrender.com/api/v1/auth/hospital/${appointment.hospital}`
               );
               // Add the hospital name to the names object
               names[appointment.hospital] = response.data.name;
