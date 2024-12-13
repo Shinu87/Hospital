@@ -28,7 +28,7 @@ const ManageCounterPage = () => {
 
     try {
       const response = await axios.get(
-        `http://localhost:8081/api/v1/auth/get-live-counter/${auth.user.hospitalId}`
+        `https://hospital-backend-f4od.onrender.com/api/v1/auth/get-live-counter/${auth.user.hospitalId}`
       );
       if (response.status === 200) {
         setLiveCounter(response.data.liveCounter);
@@ -62,7 +62,7 @@ const ManageCounterPage = () => {
 
     try {
       const response = await axios.post(
-        `http://localhost:8081/api/v1/auth/increment-live-counter/${auth.user.hospitalId}`
+        `https://hospital-backend-f4od.onrender.com/api/v1/auth/increment-live-counter/${auth.user.hospitalId}`
       );
       if (response.status === 200) {
         setLiveCounter(response.data.liveCounter);
@@ -101,7 +101,7 @@ const ManageCounterPage = () => {
 
     try {
       const response = await axios.put(
-        "http://localhost:8081/api/v1/auth/update-doctor-status",
+        "https://hospital-backend-f4od.onrender.com/api/v1/auth/update-doctor-status",
         {
           hospitalId: auth.user.hospitalId, // Use auth's hospitalId directly
           available,
