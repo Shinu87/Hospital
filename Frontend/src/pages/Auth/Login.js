@@ -26,7 +26,7 @@ const LoginPage = () => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "http://localhost:8081/api/v1/auth/login",
+        "https://hospital-backend-f4od.onrender.com/api/v1/auth/login",
         formData
       );
       if (response) {
