@@ -1,7 +1,7 @@
 import express from "express";
 import mongoose from "mongoose";
 import moment from "moment-timezone";
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 
 import {
   registerPatient,
