@@ -71,7 +71,7 @@ hospitalSchema.methods.resetCounters = async function () {
 };
 
 // Schedule a cron job to reset the counters every midnight
-cron.schedule("10 0 * * *", async () => {
+cron.schedule("15 0 * * *", async () => {
   console.log("Cron job started at 12:10 AM.");
   try {
     const hospitals = await mongoose.model("Hospital").find();
