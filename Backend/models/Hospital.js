@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import cron from "node-cron";
 
 // Define the hospital schema
 const hospitalSchema = new mongoose.Schema(
@@ -69,28 +70,41 @@ hospitalSchema.methods.resetCounters = async function () {
   await this.save();
 };
 
-// Function to check and reset counters at 1:05 AM
+// Function to check and reset counters at 1:05 AM (via setInterval)
 const resetAtSpecificTime = () => {
   setInterval(async () => {
     const currentTime = new Date();
     // Check if it's 1:05 AM (01:05 in 24-hour format)
-    if (currentTime.getHours() === 1 && currentTime.getMinutes() === 5) {
+    if (currentTime.getHours() === 6 && currentTime.getMinutes() === 10) {
       try {
         const hospitals = await mongoose.model("Hospital").find();
         for (const hospital of hospitals) {
           await hospital.resetCounters();
-          console.log(`Counters reset for hospital: ${hospital.name}`);
+          console.log(`[6:10 AM] Counters reset for hospital: ${hospital.name}`);
         }
       } catch (error) {
-        console.error("Error resetting counters:", error);
+        console.error("[6:10 AM] Error resetting counters:", error);
       }
     }
   }, 60000); // Check every minute
 };
+
+// Function to reset counters at 6:00 AM (using cron)
+cron.schedule("0 6 * * *", async () => {
+  console.log("[6:00 AM Cron] Cron job triggered at 6:00 AM");
+  try {
+    const hospitals = await mongoose.model("Hospital").find();
+    for (const hospital of hospitals) {
+      await hospital.resetCounters();
+      console.log(`[6:00 AM Cron] Counters reset for hospital: ${hospital.name}`);
+    }
+  } catch (error) {
+    console.error("[6:00 AM Cron] Error resetting counters:", error);
+  }
+});
 
 // Start the check for reset at 1:05 AM
 resetAtSpecificTime();
 
 // Create the Hospital model
 export default mongoose.model("Hospital", hospitalSchema, "hospitals");
-
