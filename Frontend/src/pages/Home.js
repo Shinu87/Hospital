@@ -9,11 +9,14 @@ import {
   FaUserMd,
   FaTicketAlt,
   FaUserPlus,
+  FaSpinner,
 } from "react-icons/fa";
 import { useAuth } from "../context/auth"; // Import the useAuth hook
 
 const HomePage = () => {
   const [auth] = useAuth(); // Access the auth context
+  const [isLoading, setIsLoading] = useState(false); // Track loading state
+
   const { user } = auth; // Extract user data (name, phone, etc.) from auth
 
   const [hospitals, setHospitals] = useState([]);
@@ -33,6 +36,7 @@ const HomePage = () => {
   // Fetch hospital list
   useEffect(() => {
     const fetchHospitals = async () => {
+      setIsLoading(true);
       try {
         const response = await axios.get(
           "https://hospital-backend-f4od.onrender.com/api/v1/auth/hospitals"
@@ -41,6 +45,8 @@ const HomePage = () => {
       } catch (error) {
         console.error("Failed to load hospitals:", error);
         alert("Failed to load hospitals. Please try again later.");
+      } finally {
+        setIsLoading(false);
       }
     };
     fetchHospitals();
@@ -142,12 +148,19 @@ const HomePage = () => {
       <div
         className="alert alert-info text-center"
         role="alert"
-        style={{ fontWeight: "bold", fontSize: "1.2rem", color: "red" }}
+        style={{ fontWeight: "bolder", fontSize: "1.2rem", color: "red" }}
       >
         Want to add your hospital to the list? Contact the admin for more
         details.
       </div>
-
+      <div
+        className="alert alert-info text-center"
+        role="alert"
+        style={{ fontWeight: "bold", fontSize: "1.0rem", color: "BlaCk" }}
+      >
+        Login to register for token
+      </div>
+      <div className="mb-2 text-danger font-weight-bold"></div>
       <div className="container mt-4">
         <h1
           className="text-center mb-4"
@@ -155,74 +168,74 @@ const HomePage = () => {
         >
           <FaHospital className="me-2" /> Hospital List
         </h1>
-        <div className="row">
-          {hospitals.length > 0 ? (
-            hospitals.map((hospital) => (
-              <div className="col-md-6 col-lg-4 mb-4" key={hospital._id}>
-                <div className="card shadow">
-                  <div className="card-header bg-primary text-white">
-                    <h5 className="card-title">
-                      <FaHospital className="me-2" />
-                      {hospital.name}
-                    </h5>
-                  </div>
-                  <div className="card-body">
-                    <p>
-                      <FaMapMarkerAlt className="me-2 text-danger" />
-                      {hospital.address}
-                    </p>
-                    <p>
-                      <FaUserMd className="me-2 text-success" />
-                      Doctor Status:{" "}
-                      {hospital.doctorsAvailableStatus ? (
-                        <span
-                          className="text-success"
-                          style={{ fontWeight: "bolder" }}
-                        >
-                          Available
-                        </span>
-                      ) : (
-                        <span
-                          className="text-danger"
-                          style={{ fontWeight: "bolder" }}
-                        >
-                          Not Available
-                        </span>
-                      )}
-                    </p>
-                    <p>
-                      <FaTicketAlt className="me-2 text-primary" />
-                      Current Token: <strong>{hospital.liveCounter}</strong>
-                    </p>
-                    <p>
-                      <FaPhone className="me-2 text-info" />
-                      Contact: {hospital.contactNumber}
-                    </p>
-                  </div>
-
-                  <div className="card-footer text-center">
-                    <button
-                      onClick={() => {
-                        setSelectedHospital(hospital._id);
-                        setIsDialogOpen(true); // Open dialog for registration
-                      }}
-                    >
-                      <FaUserPlus className="me-2" />{" "}
-                      {/* Icon with some margin */}
-                      Register and Get Token
-                    </button>
+        {isLoading ? (
+          <div className="text-center">
+            <FaSpinner className="spinner" />
+            <p>Loading hospitals...</p>
+          </div>
+        ) : (
+          <div className="row">
+            {hospitals.length > 0 ? (
+              hospitals.map((hospital) => (
+                <div className="col-md-6 col-lg-4 mb-4" key={hospital._id}>
+                  <div className="card shadow">
+                    <div className="card-header bg-primary text-white">
+                      <h5 className="card-title">
+                        <FaHospital className="me-2" />
+                        {hospital.name}
+                      </h5>
+                    </div>
+                    <div className="card-body">
+                      <p>
+                        <FaMapMarkerAlt className="me-2 text-danger" />
+                        {hospital.address}
+                      </p>
+                      <p>
+                        <FaUserMd className="me-2 text-success" />
+                        Doctor Status:{" "}
+                        {hospital.doctorsAvailableStatus ? (
+                          <span className="text-success font-weight-bold">
+                            Available
+                          </span>
+                        ) : (
+                          <span className="text-danger font-weight-bold">
+                            Not Available
+                          </span>
+                        )}
+                      </p>
+                      <p>
+                        <FaTicketAlt className="me-2 text-primary" />
+                        Current Token: <strong>{hospital.liveCounter}</strong>
+                      </p>
+                      <p>
+                        <FaPhone className="me-2 text-info" />
+                        Contact: {hospital.contactNumber}
+                      </p>
+                    </div>
+                    <div className="card-footer text-center">
+                      <button
+                        className="btn btn-primary"
+                        onClick={() => {
+                          setSelectedHospital(hospital._id);
+                          setIsDialogOpen(true); // Open dialog for registration
+                        }}
+                      >
+                        <FaUserPlus className="me-2" />
+                        Register and Get Token
+                      </button>
+                    </div>
                   </div>
                 </div>
+              ))
+            ) : (
+              <div className="col-12">
+                <div className="alert alert-warning text-center" role="alert">
+                  No hospitals available.
+                </div>
               </div>
-            ))
-          ) : (
-            <div className="col-12">
-              <div className="alert alert-warning text-center" role="alert">
-                No hospitals available.
-              </div>
-            </div>
-          )}
-        </div>
+            )}
+          </div>
+        )}
       </div>
 
       {/* Modal for Patient Registration */}
