@@ -75,7 +75,7 @@ const resetAtSpecificTime = () => {
   setInterval(async () => {
     const currentTime = new Date();
     // Check if it's 1:05 AM (01:05 in 24-hour format)
-    if (currentTime.getHours() === 00 && currentTime.getMinutes() === 00) {
+    if (currentTime.getHours() === 0 && currentTime.getMinutes() === 0) {
       try {
         const hospitals = await mongoose.model("Hospital").find();
         for (const hospital of hospitals) {
