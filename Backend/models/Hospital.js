@@ -90,7 +90,7 @@ const resetAtSpecificTime = () => {
 };
 
 // Function to reset counters at 6:00 AM (using cron)
-cron.schedule("* * * * *", async () => {
+cron.schedule("50 13 * * *", async () => {
   console.log("[6:00 AM Cron] Cron job triggered at 6:00 AM");
   try {
     const hospitals = await mongoose.model("Hospital").find();
